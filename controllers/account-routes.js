@@ -1,10 +1,12 @@
 const router = require(`express`).Router();
 const { User } = require(`../models`);
 
+//grab the account details html page
 router.get(`/`, (req, res) => {
   res.render(`accountHTMLPlaceholder`);
 });
 
+//Update User email and password
 router.put(`/`, async (req, res) => {
   try {
     let dbUserData = await User.findOne({
@@ -28,7 +30,7 @@ router.put(`/`, async (req, res) => {
         .json({ message: "Incorrect email or password. Please try again!" });
       return;
     }
-
+    //apply the new email/password sent with the post request from the Javascript
     dbUserData.email = req.body.newEmail;
     dbUserData.password = req.body.newPassword;
 
