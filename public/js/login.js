@@ -1,11 +1,14 @@
+//Function to handle a User already in the system logging in
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
+  //grab the values off the page
   const email = document.querySelector(`#EMAILINPUTPLACEHOLDER`).value.trim();
   const password = document
     .querySelector(`#PASSWORDINPUTPLACEHOLDER`)
     .value.trim();
 
+  //checks if there is a value in each of the fields and if there is, send them to the login route to get the User logged in
   if (email && password) {
     const response = await fetch(`/api/users/login`, {
       method: `POST`,
@@ -13,6 +16,7 @@ const loginFormHandler = async (event) => {
       headers: { "Content-Type": "application/json" },
     });
 
+    //If all goes well, redirect the newly logged in User to the homepage
     if (response.ok) {
       document.location.replace(`/`);
     } else {
@@ -23,14 +27,17 @@ const loginFormHandler = async (event) => {
   }
 };
 
+//function to sign a new user up in our system
 const signupFormHandler = async (event) => {
   event.preventDefault();
 
+  //Assign variables to the input fields on the front end
   const email = document.querySelector(`#EMAILSIGNUPPLACEHOLDER`).value.trim();
   const password = document
     .querySelector(`#PASSWORDSIGNUPPLACEHOLDER`)
     .value.trim();
 
+  //If there is data in those fields, send it to the create user POST request
   if (email && password) {
     const response = await fetch(`/api/users`, {
       method: `POST`,
@@ -48,6 +55,7 @@ const signupFormHandler = async (event) => {
   }
 };
 
+//Add Event Listeners to the submit buttons
 document
   .querySelector(`.LOGINFORMSUBMITPLACEHOLDER`)
   .addEventListener(`submit`, loginFormHandler);
