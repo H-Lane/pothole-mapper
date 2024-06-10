@@ -7,7 +7,7 @@ router.get(`/`, (req, res) => {
 });
 
 //Update User email and password
-router.put(`/`, async (req, res) => {
+router.put(`/:id`, async (req, res) => {
   try {
     let dbUserData = await User.findOne({
       where: {
