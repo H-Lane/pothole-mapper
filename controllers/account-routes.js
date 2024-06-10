@@ -3,7 +3,7 @@ const { User } = require(`../models`);
 
 //grab the account details html page
 router.get(`/`, (req, res) => {
-  res.render(`accountHTMLPlaceholder`);
+  res.render(`ACCOUNTHTMLPLACEHOLDER`);
 });
 
 //Update User email and password

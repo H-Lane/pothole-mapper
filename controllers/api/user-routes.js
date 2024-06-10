@@ -3,7 +3,7 @@ const { User } = require("../../models");
 
 // the home route for the login page
 router.get(`/login`, async (req, res) => {
-  res.render(`loginpageplaceholder`);
+  res.render(`LOGINPAGEPLACEHOLDER`);
 });
 
 //POST request to LOGIN a user
