@@ -32,6 +32,7 @@ const signupFormHandler = async (event) => {
   event.preventDefault();
 
   //Assign variables to the input fields on the front end
+  const name = document.querySelector(`#NAMEINPUTPLACEHOLDER`).value.trim();
   const email = document.querySelector(`#EMAILSIGNUPPLACEHOLDER`).value.trim();
   const password = document
     .querySelector(`#PASSWORDSIGNUPPLACEHOLDER`)
@@ -41,7 +42,7 @@ const signupFormHandler = async (event) => {
   if (email && password) {
     const response = await fetch(`/api/users`, {
       method: `POST`,
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ name, email, password }),
       headers: { "Content-Type": "application/json" },
     });
 

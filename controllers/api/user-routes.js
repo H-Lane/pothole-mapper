@@ -47,7 +47,7 @@ router.post(`/`, async (req, res) => {
   try {
     //Create a User using the User Model and pass it the information taken from the input boxes
     const dbUserData = await User.create({
-      username: req.body.username,
+      name: req.body.name,
       email: req.body.email,
       password: req.body.password,
     });
