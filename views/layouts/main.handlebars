@@ -6,9 +6,7 @@
   <title>PotholeApp</title>
   <link rel='stylesheet' type='text/css' href='/css/style.css' />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
-
 <body>
   <header>
     <h1>Welcome to Pothole Filler 1.0</h1>
@@ -22,27 +20,27 @@
     </ul>
   </nav>
   {{{routedPage}}}
-
-  <!-- Modal for reporting potholesd -->
+  
+  <!-- Modal for reporting potholes -->
   <div id="reportModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Report a Pothole</h2>
-    <p>Please select the size of the pothole:</p>
-    <div>
-      <button id="smallBtn">Small</button>
-      <button id="mediumBtn">Medium</button>
-      <button id="largeBtn">Large</button>
-    </div>
-    <p>Additional Comments:</p>
-    <textarea id="comment" rows="4" cols="50"></textarea>
-    <div>
-      <button id="submitBtn">Submit</button>
-      <button class="close">Close</button>
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Report a Pothole</h2>
+      <p>Please select the size of the pothole:</p>
+      <div>
+        <button id="smallBtn">Small</button>
+        <button id="mediumBtn">Medium</button>
+        <button id="largeBtn">Large</button>
+      </div>
+      <p>Additional Comments:</p>
+      <textarea id="comment" rows="4" cols="50"></textarea>
+      <div>
+        <button id="submitBtn">Submit</button>
+        <button class="close">Close</button>
+      </div>
     </div>
   </div>
-</div>
-
-
+  
+  <script src="/mapinteractions.js"></script>
 </body>
 </html>
