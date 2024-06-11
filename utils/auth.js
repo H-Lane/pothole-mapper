@@ -9,4 +9,13 @@ const withAuth = (req, res, next) => {
   }
 };
 
-module.exports = withAuth;
+const apiAuth = (req, res, next) => {
+  if (!req.session.loggedIn) {
+    res.send(`You must be logged in`)
+    } else {
+      next();
+    }
+};
+
+
+module.exports = { withAuth, apiAuth }

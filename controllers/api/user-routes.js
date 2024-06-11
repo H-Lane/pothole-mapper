@@ -1,11 +1,6 @@
 const router = require(`express`).Router();
 const { User } = require("../../models");
 
-// the home route for the login page
-router.get(`/login`, async (req, res) => {
-  res.render(`LOGINPAGEPLACEHOLDER`);
-});
-
 //POST request to LOGIN a user
 router.post(`/login`, async (req, res) => {
   try {
