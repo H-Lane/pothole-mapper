@@ -4,4 +4,44 @@
       {{{leafletsjs}}}
     </div>
   </main>
+
+<main>
+  <h2>Find your location on the map and let us know about a pothole</h2>
+  <div class='usaMap' id='map'></div>
+</main>
+
+<script>
+  var map = L.map('map')setView([37.5407, -77.4360], 12);
   
+  // Adding a tile layer (you can change the URL to your preferred tile provider)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+  
+  // Function to execute when the user's location is found
+  function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    L.marker(e.latlng).addTo(map)
+      .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    L.circle(e.latlng, radius).addTo(map);
+    map.setView(e.latlng); // Centering the map on the user's location
+  }
+  
+  // Function to execute if the user's location is not found
+  function onLocationError(e) {
+    alert(e.message);
+  }
+  
+  // Options for locating the user
+  var locateOptions = {
+    setView: true,
+    maxZoom: 16
+  };
+  
+  // Event listener for locating the user's location
+  map.on('locationfound', onLocationFound);
+  map.on('locationerror', onLocationError);
+  
+  // Locate the user's location
+  map.locate(locateOptions);
+</script>
