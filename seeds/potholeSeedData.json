@@ -1,0 +1,43 @@
+[
+  {
+    "severity": "7",
+    "lat": 37.5722, 
+    "Lng" : -77.5268, 
+    "fixed": true,
+    "user_id":1,
+    "pothole_id":"alpha" 
+  },
+  {
+    "severity": "7",
+    "lat": 37.5115, 
+    "Lng" : -77.5926, 
+    "fixed": true,
+    "user_id":2,
+    "pothole_id":"bravo"
+  },
+  {
+    "severity": "7",
+    "lat": 37.5960, 
+    "Lng" : -77.4795, 
+    "fixed": true,
+    "user_id":3,
+    "pothole_id":"charlie"
+  },
+  {
+    "severity": "7",
+    "lat": 37.5378, 
+    "Lng" : -77.4804, 
+    "fixed": true,
+    "user_id":1,
+    "pothole_id": "delta" 
+  },
+  {
+    "severity": "7",
+    "lat": 37.5551, 
+    "Lng" : -77.4436, 
+    "fixed": true,
+    "user_id":2,
+    "pothole_id":"foxtrot"
+  }
+
+]

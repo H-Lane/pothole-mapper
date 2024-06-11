@@ -1,0 +1,33 @@
+[
+  {
+   "user_id": 1,
+   "description": "this thing is huge",
+   "pothole_id": "alpha" 
+  },
+  {
+   "user_id": 2,
+    "description": "lost a hubcap",
+    "pothole_id": "Bravo"
+  },
+  {
+   "user_id": 3,
+    "description": "this thing hits harder than Jiren",
+    "pothole_id": "Charlie"
+  },
+  {
+   "user_id": 1,
+    "description": "I have never known defeat, but my car took an L",
+    "pothole_id": "Delta"
+  },
+  {
+   "user_id": 2,
+    "description": "Mama Mia!",
+    "pothole_id":"Echo"
+  }
+  {
+   "user_id": 3,
+    "description": "ouch!",
+    "pothole_id":"foxtrot"
+  }
+
+]

@@ -1,43 +1,55 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const Comment = require('./Comments'); 
+const User = require('./User'); 
 
 class Pothole extends Model {}
 
 Pothole.init(
   {
-    // Manually define the primary key
     pothole_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    title: {
+    size: {
       type: DataTypes.STRING
     },
-    author: {
-      type: DataTypes.STRING
-    },
-    isbn: {
-      type: DataTypes.STRING
-    },
-    pages: {
+    lat: { 
       type: DataTypes.INTEGER
     },
-    edition: {
+    lng: { 
       type: DataTypes.INTEGER
     },
-    is_paperback: {
+    fixed: {
       type: DataTypes.BOOLEAN
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model:`users`,
+        key: `id`,
+      }
     }
   },
   {
     sequelize,
     timestamps: false,
-    // Prevent sequelize from renaming the table
     freezeTableName: true,
     underscored: true,
     modelName: 'pothole'
   }
 );
 
-module.exports=Pothole;
+// Define association with the Comment model
+Pothole.hasMany(Comments, {
+  foreignKey: 'pothole_id',
+  onDelete: 'CASCADE', // If a Pothole is deleted, delete its associated Comments
+});
+Pothole.hasOne(User, {
+  foreignKey: 'pothole_id',
+  onDelete: 'CASCADE', 
+});
+
+module.exports = Pothole;
+ 
