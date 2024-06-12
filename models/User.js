@@ -1,8 +1,8 @@
 const { Model, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 const sequelize = require("../config/connection");
-const Pothole = require("./pothole");
-const Comments = require("./Comments");
+const Pothole = require(`./Pothole`);
+const Comments = require(`./Comments`);
 // const { User } = require('.');
 
 class User extends Model {
@@ -54,15 +54,4 @@ User.init(
   }
 );
 
-// Define associations with Pothole and Comments models
-user.hasMany(Pothole, {
-  foreignKey: "pothole_id",
-  onDelete: "CASCADE",
-});
-
-User.hasMany(Comments, {
-  foreignKey: "pothole_id",
-  onDelete: "CASCADE",
-});
-
-module.exports = user;
+module.exports = User;

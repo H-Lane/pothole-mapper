@@ -1,7 +1,36 @@
-const Pothole=require(`./pothole`);
-const Users=require(`./User`);
-const Comments=require(`./Comments`);
+const Pothole = require(`./pothole`);
+const User = require(`./User`);
+const Comments = require(`./Comments`);
 
+// Define associations with Pothole and Comments models
+User.hasMany(Pothole, {
+  foreignKey: "pothole_id",
+  onDelete: "CASCADE",
+});
 
-module.exports={ Pothole, Users, Comments }
- 
+User.hasMany(Comments, {
+  foreignKey: "pothole_id",
+  onDelete: "CASCADE",
+});
+
+// Define association with the Comment model
+Pothole.hasMany(Comments, {
+  foreignKey: "pothole_id",
+  onDelete: "CASCADE", // If a Pothole is deleted, delete its associated Comments
+});
+Pothole.hasOne(User, {
+  foreignKey: "pothole_id",
+  onDelete: "CASCADE",
+});
+
+// Define the association with the Pothole and users models
+Comments.belongsTo(Pothole, {
+  foreignKey: "pothole_id",
+  onDelete: "CASCADE", // If a Pothole is deleted, delete its associated Comments
+});
+Comments.belongsTo(User, {
+  foreignKey: "pothole_id",
+  onDelete: "CASCADE",
+});
+
+module.exports = { Pothole, User, Comments };
