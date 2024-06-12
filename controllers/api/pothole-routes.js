@@ -10,13 +10,24 @@ router.post(`/`, async (req, res) => {
       description: req.body.description,
       pothole_id: dbPotholeData.id,
     });
-    res.status(200).json({ message: `Pothole Added!`, dbPotholeData, dbCommentsData });
-    
-
+    res
+      .status(200)
+      .json({ message: `Pothole Added!`, dbPotholeData, dbCommentsData });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
+router.delete(`/`, async (req, res) => {
+  try {
+    const dbPotholeData = await Pothole.destroy({
+      where: {id: req.body.id}
+    });
+    res.status(200).json({ message: `Pothole Removed!`})
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
