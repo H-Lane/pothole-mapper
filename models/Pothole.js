@@ -7,7 +7,7 @@ class Pothole extends Model {}
 
 Pothole.init(
   {
-    pothole_id: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -16,10 +16,10 @@ Pothole.init(
       type: DataTypes.STRING,
     },
     lat: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     lng: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     fixed: {
       type: DataTypes.BOOLEAN,

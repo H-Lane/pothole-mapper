@@ -28,7 +28,7 @@ Comments.init(
       type: DataTypes.INTEGER,
       references: {
         model: "pothole", // This is the name of the table
-        key: "pothole_id", // This is the name of the column in the Pothole table
+        key: "id", // This is the name of the column in the Pothole table
       },
     },
   },
