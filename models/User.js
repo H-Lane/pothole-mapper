@@ -1,17 +1,17 @@
-const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
-const sequelize = require('../config/connection');
-const Pothole = require('./pothole');
-const Comments = require('./Comments');
-const { User } = require('.');
+const { Model, DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
+const sequelize = require("../config/connection");
+const Pothole = require(`./Pothole`);
+const Comments = require(`./Comments`);
+// const { User } = require('.');
 
-class Users extends Model {
+class User extends Model {
   checkPassword(loginPw) {
     return bcrypt.compareSync(loginPw, this.password);
   }
 }
 
-user.init(
+User.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -50,19 +50,8 @@ user.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'user',
+    modelName: "user",
   }
 );
 
-// Define associations with Pothole and Comments models
-user.hasMany(Pothole, {
-  foreignKey: 'pothole_id',
-  onDelete: 'CASCADE'
-});
-
-User.hasMany(Comments, {
-  foreignKey: 'pothole_id',
-  onDelete: 'CASCADE'
-});
-
-module.exports = user;
+module.exports = User;
