@@ -1,15 +1,15 @@
 const router = require(`express`).Router();
 const { User, Pothole, Comments } = require(`../../models`);
 
-router.post(`/`, async (req, res) => {
+router.get(`/`, async (req, res) => {
   try {
-    const dbPotholeData = await Pothole.findAll({
-        where: {user_id: req.body.user_id}
+    const potholes = await Pothole.findAll({
+        where: {user_id: req.session.user_id}
     });
-    const dbCommentsData = await Comments.findAll({
-        where: {user_id: req.body.user_id}
+    const comments = await Comments.findAll({
+        where: {user_id: req.session.user_id}
     });
-    res.status(200).json(dbPotholeData, dbCommentsData)
+    res.status(200).json({ potholes, comments })
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

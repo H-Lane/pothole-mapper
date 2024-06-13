@@ -3,16 +3,16 @@ const { User, Pothole, Comments } = require("../../models");
 
 router.post(`/`, async (req, res) => {
   try {
-    const dbPotholeData = await Pothole.create(req.body);
+    const pothole = await Pothole.create(req.body);
 
-    const dbCommentsData = await Comments.create({
-      user_id: req.body.user_id,
+    const comment = await Comments.create({
+      user_id: req.session.user_id,
       description: req.body.description,
       pothole_id: dbPotholeData.id,
     });
     res
       .status(200)
-      .json({ message: `Pothole Added!`, dbPotholeData, dbCommentsData });
+      .json({ message: `Pothole Added!`, pothole, comment });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -22,7 +22,7 @@ router.post(`/`, async (req, res) => {
 router.delete(`/`, async (req, res) => {
   try {
     const dbPotholeData = await Pothole.destroy({
-      where: {id: req.body.id}
+      where: {id: req.body.pothole_id}
     });
     res.status(200).json({ message: `Pothole Removed!`})
   } catch (err) {
