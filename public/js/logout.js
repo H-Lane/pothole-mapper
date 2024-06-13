@@ -1,8 +1,8 @@
 const update = async () => {
   try {
-    const name = document.querySelector(`#newName`);
-    const email = document.querySelector(`#newEmail`);
-    const password = document.querySelector(`#newPassword`);
+    const name = document.querySelector(`#newName`).value.trim();
+    const email = document.querySelector(`#newEmail`).value.trim();
+    const password = document.querySelector(`#newPassword`).value.trim();
     const response = await fetch(`/api/account`, {
       method: `PUT`,
       body: {
