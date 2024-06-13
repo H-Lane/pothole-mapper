@@ -22,7 +22,15 @@ router.get(`/login`, (req, res) => {
 
 //grab the account details html page and pass it the users potholes and comments
 router.get(`/account`, withAuth, async (req, res) => {
-    res.render(`ACCOUNTHTMLPLACEHOLDER`, { logged_in: req.session.logged_in });
+  try {
+  const dbUserData = await User.findByPk(req.session.user_id);
+
+    res.render(`ACCOUNTHTMLPLACEHOLDER`, { logged_in: req.session.logged_in, dbUserData });
+
+} catch (err) {
+  console.log(err);
+  res.status(500).json(err);
+}
 });
 
 //Get HTML route for the Users reported potholes

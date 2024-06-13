@@ -1,8 +1,8 @@
 const update = async () => {
   try {
-    const name = document.querySelector(`#NEWNAMEPLACEHOLDER`);
-    const email = document.querySelector(`#NEWEMAILPLACEHOLDER`);
-    const password = document.querySelector(`#NEWPASSWORDPLACEHOLDER`);
+    const name = document.querySelector(`#newName`);
+    const email = document.querySelector(`#newEmail`);
+    const password = document.querySelector(`#newPassword`);
     const response = await fetch(`/api/account`, {
       method: `PUT`,
       body: {
@@ -45,6 +45,23 @@ const logout = async () => {
   }
 };
 
+function displayPassword() {
+  var x = document.getElementById("newPassword");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
 document
-  .querySelector(`#LOGOUTBUTTONPLACEHOLDER`)
+  .querySelector(`#logoutButton`)
   .addEventListener(`click`, logout);
+
+document
+  .querySelector(`#updateButton`)
+  .addEventListener(`click`, update);
+
+document
+  .querySelector(`#displayPassword`)
+  .addEventListener(`click`, displayPassword);
