@@ -1,19 +1,16 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reports</title>
-  </head>
-  <body>
-    {{#if logged_in}}
-      {{#each potholes}}
-        <div>
+<main id="reports-container">
+    <h3>My Potholes:</h3>
+      {{#each userPotholes}}
+        <div class="user-pothole-container">
           <p> Location: Lat:{{this.lat}} Lng:{{this.lng}}</p>
           <p> Size: {{this.size}}</p>
         </div>
       {{/each}}
-    {{else}}
-      <meta http-equiv="refresh" content="0; URL=http://localhost:3001/login" />
-    {{/if}}
-  </body>
-</html>
+    <h3>My Comments:</h3>
+      {{#each userComments}}
+        <div class="user-comments-container">
+          <p>{{this.description}}</p>
+        </div>
+      {{/each}}
+</main>
+

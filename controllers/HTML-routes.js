@@ -4,7 +4,7 @@ const { User, Pothole, Comments } = require(`../models`);
 const { withAuth } = require(`../utils/auth`);
 
 //route for the homepage and pass it all potholes and all comments in our db
-router.get(`/`, async (req, res) => {
+router.get(`/`, withAuth, async (req, res) => {
   try {
     const potholes = await Pothole.findAll();
     const comments = await Comments.findAll();
