@@ -8,7 +8,7 @@ router.get(`/`, withAuth, async (req, res) => {
   try {
     const potholes = await Pothole.findAll();
     const comments = await Comments.findAll();
-    res.render(`HOMEPAGEPLACEHOLDER`, { potholes, comments, logged_in: req.session.logged_in });
+    res.render(`map`, { potholes, comments, logged_in: req.session.logged_in });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
