@@ -11,18 +11,19 @@
 
 </head>
 <body>
-  {{#if _loggedIn}}
+  {{#if logged_in}}
   <header>
     <h1>Welcome to Pothole Filler 1.0</h1>
   </header>
  
  {{> navbar}}
 
-  <!-- This hold the Leaflet map -->
-  <main>
-    <h2>Find your location on the map and let us know about a pothole</h2>
-    <div class='usaMap' id='map'></div>
-  </main>
+  <!-- This holds the insert from handlebars -->
+  {{{body}}}
+
+
+
+
 
   <!-- Modal for reporting potholes -->
   <div id="reportModal" class="modal">
@@ -44,80 +45,13 @@
     </div>
   </div>
 
-
-  <!-- Include Leaflet and custom JavaScript -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-p5V01b6bhDZ+Lk5hr/T729eobITZGxXe2JdG9vjLcz0=" crossorigin=""></script>
-  <script src="/mapinteractions.js"></script> <!-- Your custom JavaScript for map interactions -->
-
-  <script>
-    // Your Leaflet map initialization and modal interaction JavaScript
-    var map = L.map('map').setView([37.5407, -77.4360], 12);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    var markers = {}; // Object to store markers with pothole IDs
-
-    // Function to create and open the modal
-    function openModal(markerId, latlng) {
-      var reportModal = document.getElementById('reportModal');
-      reportModal.style.display = 'block';
-
-      // Set the latitude and longitude in the modal
-      document.getElementById('latitude').value = latlng.lat;
-      document.getElementById('longitude').value = latlng.lng;
-    }
-
-    // Function to close the modal
-    function closeModal() {
-      var reportModal = document.getElementById('reportModal');
-      reportModal.style.display = 'none';
-    }
-
-    // Event listener for clicking on the map
-    map.on('click', function(e) {
-      var latlng = e.latlng;
-
-      // Generate a unique marker ID
-      var markerId = 'marker_' + Object.keys(markers).length;
-
-      // Add a marker with the generated marker ID
-      var marker = L.marker(latlng).addTo(map);
-      markers[markerId] = marker; // Store with a unique ID
-
-      // Define the content of the popup with buttons
-      var popupContent = `
-        <button onclick="openModal('${markerId}', ${latlng})">Report a Pothole</button>
-      `;
-
-      // Bind the popup to the marker with the specified content
-      marker.bindPopup(popupContent).openPopup();
-    });
-
-    // Event listener for clicking on a marker
-    map.on('popupopen', function(e) {
-      var markerId = e.popup._source.options.potholeId;
-      // Additional logic for popup interaction
-    });
-
-    // Function to submit the report
-    document.getElementById('submitBtn').onclick = function() {
-      var selectedSize = document.querySelector('.selected').innerText;
-      var comment = document.getElementById('comment').value;
-
-      console.log('Submitting report...');
-      closeModal(); // Close modal after submission
-    };
-
-  </script>
   {{else}}
   <h1>Please Log in to view our Potholes</h1>
   <a href="/login">Login</a>
   {{/if}}
-
   
-  <script src="/mapinteractions.js"></script>
+  <!-- Include Leaflet and custom JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-p5V01b6bhDZ+Lk5hr/T729eobITZGxXe2JdG9vjLcz0=" crossorigin=""></script>
   <script src="../../public/js/login.js"></script>
   <script src="../../public/js/logout.js"></script>
 
