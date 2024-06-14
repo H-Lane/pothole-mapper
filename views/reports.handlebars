@@ -1,0 +1,16 @@
+<main id="reports-container">
+    <h3>My Potholes:</h3>
+      {{#each userPotholes}}
+        <div class="user-pothole-container">
+          <p> Location: Lat:{{this.lat}} Lng:{{this.lng}}</p>
+          <p> Size: {{this.size}}</p>
+        </div>
+      {{/each}}
+    <h3>My Comments:</h3>
+      {{#each userComments}}
+        <div class="user-comments-container">
+          <p>{{this.description}}</p>
+        </div>
+      {{/each}}
+</main>
+
