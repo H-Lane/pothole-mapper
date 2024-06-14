@@ -48,7 +48,7 @@ const signupFormHandler = async (event) => {
       });
 
       if (response.ok) {
-        document.location.replace(`/`);
+        document.location.replace(`http://localhost:3001/`);
       } else {
         alert(
           `Signup failed. Please try again. If this error persists please try again later`
