@@ -1,3 +1,5 @@
+alert(`Loginn.js is connecting`)
+
 //Function to handle a User already in the system logging in
 const loginFormHandler = async (event) => {
   try {
@@ -38,6 +40,7 @@ const signupFormHandler = async (event) => {
     const name = document.querySelector(`#name-signup`).value.trim();
     const email = document.querySelector(`#email-signup`).value.trim();
     const password = document.querySelector(`#password-signup`).value.trim();
+    console.log(name, email, password)
 
     //If there is data in those fields, send it to the create user POST request
     if (email && password) {
@@ -48,7 +51,7 @@ const signupFormHandler = async (event) => {
       });
 
       if (response.ok) {
-        document.location.replace(`http://localhost:3001/`);
+        document.location.replace(`/`);
       } else {
         alert(
           `Signup failed. Please try again. If this error persists please try again later`
@@ -63,7 +66,7 @@ const signupFormHandler = async (event) => {
 //Add Event Listeners to the submit buttons
 document
   .querySelector(`#loginbutton`)
-  .addEventListener(`submit`, loginFormHandler);
+  .addEventListener(`click`, loginFormHandler);
 document
   .querySelector(`#signupbutton`)
-  .addEventListener(`submit`, signupFormHandler);
+  .addEventListener(`click`, signupFormHandler);

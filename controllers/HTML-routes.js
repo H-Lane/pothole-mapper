@@ -17,7 +17,7 @@ router.get(`/`, withAuth, async (req, res) => {
 
 // the home route for the login page
 router.get(`/login`, (req, res) => {
-  res.render(`login`);
+  res.render(`login`, { logged_in: req.session.logged_in });
 });
 
 //grab the account details html page and pass it the users potholes and comments
