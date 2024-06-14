@@ -1,7 +1,7 @@
 const sequelize = require('../config/connection');
 const { User, Pothole, Comments } = require('../models');
 
-const userSeedData = require('./usersSeedData.json');
+const userSeedData = require('./userData.json');
 const potholeSeedData = require('./potholeSeedData.json');
 const commentSeedData = require('./commentsSeedData.json');
 

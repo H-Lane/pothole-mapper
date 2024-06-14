@@ -11,44 +11,20 @@
 
 </head>
 <body>
-  {{#if logged_in}}
+  {{!-- {{#if logged_in}}
   <header>
     <h1>Welcome to Pothole Filler 1.0</h1>
-  </header>
+  </header> --}}
  
  {{> navbar}}
 
   <!-- This holds the insert from handlebars -->
   {{{body}}}
 
-
-
-
-
-  <!-- Modal for reporting potholes -->
-  <div id="reportModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Report a Pothole</h2>
-      <p>Please select the size of the pothole:</p>
-      <div>
-        <button id="smallBtn">Small</button>
-        <button id="mediumBtn">Medium</button>
-        <button id="largeBtn">Large</button>
-      </div>
-      <p>Additional Comments:</p>
-      <textarea id="comment" rows="4" cols="50"></textarea>
-      <div>
-        <button id="submitBtn">Submit</button>
-        <button class="close">Close</button>
-      </div>
-    </div>
-  </div>
-
-  {{else}}
+  {{!-- {{else}}
   <h1>Please Log in to view our Potholes</h1>
   <a href="/login">Login</a>
-  {{/if}}
+  {{/if}} --}}
   
   <!-- Include Leaflet and custom JavaScript -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-p5V01b6bhDZ+Lk5hr/T729eobITZGxXe2JdG9vjLcz0=" crossorigin=""></script>

@@ -4,10 +4,8 @@ const loginFormHandler = async (event) => {
     event.preventDefault();
 
     //grab the values off the page
-    const email = document.querySelector(`#EMAILINPUTPLACEHOLDER`).value.trim();
-    const password = document
-      .querySelector(`#PASSWORDINPUTPLACEHOLDER`)
-      .value.trim();
+    const email = document.querySelector(`#emailinput`).value.trim();
+    const password = document.querySelector(`#passwordinput`).value.trim();
 
     //checks if there is a value in each of the fields and if there is, send them to the login route to get the User logged in
     if (email && password) {
@@ -34,39 +32,38 @@ const loginFormHandler = async (event) => {
 //function to sign a new user up in our system
 const signupFormHandler = async (event) => {
   try {
-  event.preventDefault();
+    event.preventDefault();
 
-  //Assign variables to the input fields on the front end
-  const name = document.querySelector(`#NAMEINPUTPLACEHOLDER`).value.trim();
-  const email = document.querySelector(`#EMAILSIGNUPPLACEHOLDER`).value.trim();
-  const password = document
-    .querySelector(`#PASSWORDSIGNUPPLACEHOLDER`)
-    .value.trim();
+    //Assign variables to the input fields on the front end
+    const name = document.querySelector(`#name-signup`).value.trim();
+    const email = document.querySelector(`#email-signup`).value.trim();
+    const password = document.querySelector(`#password-signup`).value.trim();
 
-  //If there is data in those fields, send it to the create user POST request
-  if (email && password) {
-    const response = await fetch(`/api/users`, {
-      method: `POST`,
-      body: JSON.stringify({ name, email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+    //If there is data in those fields, send it to the create user POST request
+    if (email && password) {
+      const response = await fetch(`/api/users`, {
+        method: `POST`,
+        body: JSON.stringify({ name, email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (response.ok) {
-      document.location.replace(`/`);
-    } else {
-      alert(
-        `Signup failed. Please try again. If this error persists please try again later`
-      );
+      if (response.ok) {
+        document.location.replace(`http://localhost:3001/`);
+      } else {
+        alert(
+          `Signup failed. Please try again. If this error persists please try again later`
+        );
+      }
     }
-  }} catch (err) {
+  } catch (err) {
     console.log(err);
   }
 };
 
 //Add Event Listeners to the submit buttons
 document
-  .querySelector(`.LOGINFORMSUBMITPLACEHOLDER`)
+  .querySelector(`#loginbutton`)
   .addEventListener(`submit`, loginFormHandler);
 document
-  .querySelector(`.SIGNUPFORMSUBMITPLACEHOLDER`)
+  .querySelector(`#signupbutton`)
   .addEventListener(`submit`, signupFormHandler);

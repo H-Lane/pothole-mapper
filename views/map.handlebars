@@ -1,5 +1,26 @@
 <main>
   <h2>Find your location on the map and let us know about a pothole</h2>
-  <div class='usaMap' id='map'></div>
+  <div class="usaMap" id="map"></div>
 </main>
-  <script src="/js/mapinteractions.js"></script>
+
+<!-- Modal for reporting potholes -->
+<div id="reportModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Report a Pothole</h2>
+    <p>Please select the size of the pothole:</p>
+    <div>
+      <button id="smallBtn">Small</button>
+      <button id="mediumBtn">Medium</button>
+      <button id="largeBtn">Large</button>
+    </div>
+    <p>Additional Comments:</p>
+    <textarea id="comment" rows="4" cols="50"></textarea>
+    <div>
+      <button id="submitBtn">Submit</button>
+      <button class="close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/mapinteractions.js"></script>
