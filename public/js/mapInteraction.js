@@ -8,12 +8,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 var markers = {}; // Object to store markers with pothole IDs
 
-// Function to create and open the modal
-function openModal(markerId, latlng) {
+// Function to open the modal for reporting a pothole
+function openModal(markerId, lat, lng) {
   // Create and display the modal dynamically
   var reportModal = document.createElement("div");
   reportModal.className = "modal";
-  // generates the modal from inneHTML
+  reportModal.id = "reportModal"; // Set modal ID for easier selection
   reportModal.innerHTML = `
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -35,6 +35,7 @@ function openModal(markerId, latlng) {
   document.body.appendChild(reportModal);
 
   // Position modal over the pin marker
+  var latlng = L.latLng(lat, lng);
   var markerOffset = map.latLngToContainerPoint(latlng);
   reportModal.style.left = markerOffset.x + 'px';
   reportModal.style.top = markerOffset.y + 'px';
@@ -61,21 +62,49 @@ function closeModal() {
 }
 
 // Function to submit the report
-function submitReport(markerId) {
+async function submitReport(markerId) {
   var comment = document.getElementById("comment").value;
   var selectedPotholeSize = document.querySelector(".modal-content .selected").innerText;
-  // Logic for submitting the report with comment
-  console.log("Submitting report for Marker ID " + markerId + "...");
 
-  // Here we make a fetch request to obtain the pothole ID, and then delete the selected pin
+  var marker = markers[markerId];
+  if (!marker) {
+    console.error('Marker not found for ID:', markerId);
+    return;
+  }
 
-  closeModal();
+  const data = {
+    lng: marker.getLatLng().lng,
+    lat: marker.getLatLng().lat,
+    size: selectedPotholeSize,
+    description: comment,
+    user_id: getSessionUserId() // Replace with your actual user ID retrieval logic
+  };
+
+  try {
+    const response = await fetch('/api/pothole', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      alert('Pothole reported successfully!');
+      closeModal();
+    } else {
+      alert('Failed to report pothole.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred while reporting the pothole.');
+  }
 }
 
-// Function to remove a pothole (delete the marker)
+// Function to remove a pothole
 function removePothole(markerId) {
   map.removeLayer(markers[markerId]);
-  delete markers[markerId]; // do we want to remove this?
+  delete markers[markerId];
   closeModal();
 }
 
@@ -89,7 +118,7 @@ map.on('click', function(e) {
 
   // Add a marker with the generated marker ID
   var marker = L.marker([lat, lng]).addTo(map);
-  markers[markerId] = marker; // Store with a unique ID
+  markers[markerId] = marker;
 
   // Define the content of the popup with buttons
   var popupContent = `
@@ -104,5 +133,9 @@ map.on('click', function(e) {
 // Event listener for clicking on a marker
 map.on('popupopen', function(e) {
   var markerId = e.popup._source.options.potholeId;
-  // We can do w/e we want with this here
+
 });
+
+function getSessionUserId() {
+  return 1; // 
+}
