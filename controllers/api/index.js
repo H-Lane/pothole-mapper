@@ -8,7 +8,7 @@ const potholeRoutes = require(`./pothole-routes`);
 const commentRoutes = require(`./comment-routes`);
 
 //This tells express how to route different requests to their correct page
-router.use("/users", userRoutes);
+router.use(`/users`, userRoutes);
 router.use(`/reports`, reportsRoutes);
 router.use(`/account`, accountRoutes);
 router.use(`/pothole`, potholeRoutes);
