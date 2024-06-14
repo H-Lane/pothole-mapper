@@ -1,6 +1,6 @@
 //require in our express routes and any additional page routes within the controllers folder
 const router = require(`express`).Router();
-const htmlRoutes = require(`./HTML-routes`);
+const htmlRoutes = require(`./html-routes`);
 const apiRoutes = require(`./api`);
 
 

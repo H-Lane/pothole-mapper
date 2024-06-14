@@ -1,0 +1,17 @@
+<main id="account-info-container">
+  <div id="account-display-container">
+    <p class="account-details">Username: {{dbUserData.name}}</p>
+    <p class="account-details">Email: {{dbUserData.email}}</p>
+  </div>
+  <div>
+    <h4>Update Account Information</h4>
+    <input type="username" value="New Username" id="newName" />
+    <input type="email" value="New Email" id="newEmail" />
+    <input type="password" value="New Password" id="newPassword" /><input
+      id="displayPassword"
+      type="checkbox"
+    />Show Password
+    <button id="updateButton">Submit</button>
+    <button id="logoutButton">Logout</button>
+  </div>
+</main>
