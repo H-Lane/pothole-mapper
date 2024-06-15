@@ -1,3 +1,4 @@
+alert(`logout.js is connecting`)
 const update = async () => {
   try {
     const name = document.querySelector(`#newName`).value.trim();

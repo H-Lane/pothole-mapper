@@ -4,12 +4,12 @@ const Comments = require(`./Comments`);
 
 // Define associations with Pothole and Comments models
 User.hasMany(Pothole, {
-  foreignKey: "pothole_id",
+  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 
 User.hasMany(Comments, {
-  foreignKey: "pothole_id",
+  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 
@@ -18,8 +18,8 @@ Pothole.hasMany(Comments, {
   foreignKey: "pothole_id",
   onDelete: "CASCADE", // If a Pothole is deleted, delete its associated Comments
 });
-Pothole.hasOne(User, {
-  foreignKey: "pothole_id",
+Pothole.belongsTo(User, {
+  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 
@@ -29,7 +29,7 @@ Comments.belongsTo(Pothole, {
   onDelete: "CASCADE", // If a Pothole is deleted, delete its associated Comments
 });
 Comments.belongsTo(User, {
-  foreignKey: "pothole_id",
+  foreignKey: "user_id",
   onDelete: "CASCADE",
 });
 

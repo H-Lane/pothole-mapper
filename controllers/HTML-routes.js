@@ -20,11 +20,11 @@ router.get(`/login`, (req, res) => {
   res.render(`login`, { logged_in: req.session.logged_in });
 });
 
-//grab the account details html page and pass it the users potholes and comments
+//grab the account details html page and pass it the users information
 router.get(`/account`, withAuth, async (req, res) => {
   try {
     const dbUserData = await User.findByPk(req.session.user_id);
-
+    console.log(dbUserData)
     res.render(`account`, { logged_in: req.session.logged_in, dbUserData });
   } catch (err) {
     console.log(err);
