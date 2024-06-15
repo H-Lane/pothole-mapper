@@ -48,7 +48,7 @@ const signupFormHandler = async (event) => {
       });
 
       if (response.ok) {
-        document.location.replace(`http://localhost:3001/`);
+        document.location.replace(`/`);
       } else {
         alert(
           `Signup failed. Please try again. If this error persists please try again later`
@@ -63,7 +63,7 @@ const signupFormHandler = async (event) => {
 //Add Event Listeners to the submit buttons
 document
   .querySelector(`#loginbutton`)
-  .addEventListener(`submit`, loginFormHandler);
+  .addEventListener(`click`, loginFormHandler);
 document
   .querySelector(`#signupbutton`)
-  .addEventListener(`submit`, signupFormHandler);
+  .addEventListener(`click`, signupFormHandler);

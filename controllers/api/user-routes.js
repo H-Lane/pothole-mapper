@@ -39,6 +39,7 @@ router.post(`/login`, async (req, res) => {
 
 //POST request to CREATE a new User
 router.post(`/`, async (req, res) => {
+  console.log(`Creating User`);
   try {
     //Create a User using the User Model and pass it the information taken from the input boxes
     const dbUserData = await User.create({
