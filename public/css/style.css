@@ -1,0 +1,27 @@
+/* Modal styles */
+.modal {
+    display: none; /* Hide modal by default */
+    position: fixed; /* Position relative to viewport */
+    z-index: 1000; /* Ensure modal appears on top of other content */
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Centering trick */
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 80%; 
+    max-height: 80%; 
+    overflow: auto; 
+  }
+  
+  .modal-content {
+    
+  }
+  
+  .close {
+    float: right;
+    cursor: pointer;
+  }
+  

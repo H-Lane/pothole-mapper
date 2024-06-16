@@ -1,26 +1,55 @@
-<main>
-  <h2>Find your location on the map and let us know about a pothole</h2>
-  <div class="usaMap" id="map"></div>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PotholeApp</title>
+  <link rel='stylesheet' type='text/css' href='/css/style.css' />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="/css/reports.css" />
+  <link rel="stylesheet" href="/css/jass.css" />
+  <link rel="stylesheet" href="/css/login.css">
+  <style>
+    #map {
+      width: 100%;
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>Find your location on the map and let us know about a pothole</h2>
+    <div id="map"></div>
+  </main>
 
-<!-- Modal for reporting potholes -->
+
 <div id="reportModal" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close" onclick="closeModal()">&times;</span>
     <h2>Report a Pothole</h2>
     <p>Please select the size of the pothole:</p>
     <div>
-      <button id="smallBtn">Small</button>
-      <button id="mediumBtn">Medium</button>
-      <button id="largeBtn">Large</button>
+      <button id="smallBtn" onclick="updateSelectedButton('smallBtn')">Small</button>
+      <button id="mediumBtn" onclick="updateSelectedButton('mediumBtn')">Medium</button>
+      <button id="largeBtn" onclick="updateSelectedButton('largeBtn')">Large</button>
     </div>
     <p>Additional Comments:</p>
     <textarea id="comment" rows="4" cols="50"></textarea>
     <div>
-      <button id="submitBtn">Submit</button>
-      <button class="close">Close</button>
+      <button id="submitBtn" onclick="submitReport()">Submit</button>
+      <button class="close" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
 
-<script src="/js/mapinteractions.js"></script>
+
+  <!-- Include Leaflet and custom JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="/js/mapInteraction.js"></script>
+
+  <!-- Optional: Logout script if user is logged in -->
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+</body>
+</html>
