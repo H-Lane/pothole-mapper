@@ -1,3 +1,5 @@
+const {getSessionUserId} = require(`../../utils/helpers`)
+
 var L = window.L;
 
 var map = L.map("map").setView([37.5407, -77.436], 12);
@@ -100,7 +102,7 @@ async function submitReport(markerId) {
     lat: marker.getLatLng().lat,
     size: selectedPotholeSize,
     description: comment,
-    user_id: getSessionUserId(),
+    // user_id: getSessionUserId(),
   };
 
   try {
@@ -154,6 +156,6 @@ map.on("click", function (e) {
 });
 
 // Function to get session user ID (dummy function for example)
-function getSessionUserId() {
-  return 1; // Replace with actual implementation
-}
+// function getSessionUserId() {
+//   return 1; // Replace with actual implementation
+// }

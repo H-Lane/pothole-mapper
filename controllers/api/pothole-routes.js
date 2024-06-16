@@ -18,7 +18,15 @@ router.get(`/`, async (req, res) => {
 
 router.post(`/`, async (req, res) => {
   try {
-    const newPothole = await Pothole.create(req.body);
+    const newPothole = await Pothole.create({
+      size: req.body.size,
+      lat: req.body.lat,
+      lng: req.body.lng,
+      fixed: false,
+      user_id: req.session.user_id
+    });
+
+    const pothole = newPothole.toJSON();
 
     const newComment = await Comments.create({
       user_id: req.session.user_id,
@@ -26,7 +34,6 @@ router.post(`/`, async (req, res) => {
       pothole_id: pothole.id,
     });
 
-    const pothole = newPothole.toJSON();
     const comment = newComment.toJSON();
 
     res.status(200).json({ message: `Pothole Added!`, pothole: pothole, comment: comment });
