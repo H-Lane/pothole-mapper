@@ -11,9 +11,12 @@ router.put(`/`, apiAuth, async (req, res) => {
       },
       req.body
     );
+
+    const userData = dbUserData.toJSON()
+
     res
       .status(200)
-      .json({ user: dbUserData, message: `Account details updated` });
+      .json({ user: userData, message: `Account details updated` });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
