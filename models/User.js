@@ -45,6 +45,11 @@ User.init(
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
+      beforeSave: async (user) => {
+        if (user.changed(`password`)) {
+          user.password = await bcrypt.hash(user.password, 10);
+        }
+      }
     },
     sequelize,
     timestamps: false,

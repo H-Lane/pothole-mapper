@@ -5,15 +5,33 @@ const { apiAuth } = require(`../../utils/auth`);
 //Update User email and password
 router.put(`/`, apiAuth, async (req, res) => {
   try {
-    let dbUserData = await User.update(
-      {
-        where: { id: req.session.user_id },
-      },
-      req.body
-    );
-    res
+    User.findByPk(req.session.user_id)
+    .then((user) => {
+      if (user) {
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.password = req.body.password;
+        return user.save();
+      } else {
+        console.log(`User Not Found`);
+      }
+    })
+    .then((updatedUser) => {
+      res
       .status(200)
-      .json({ user: dbUserData, message: `Account details updated` });
+      .json({ user: updatedUser, message: `Account details updated` });
+    });
+
+    // let dbUserData = await User.update(
+    //   req.body,
+    //   {
+    //     where: { id: req.session.user_id },
+    //   }
+    // );
+
+    // const userData = user.toJSON();
+
+   
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

@@ -3,10 +3,13 @@ const { User, Pothole, Comments } = require("../../models");
 
 router.get(`/`, async (req, res) => {
   try {
-    const potholes = await Pothole.findAll();
-    const comments = await Comments.findAll();
+    const allPotholes = await Pothole.findAll();
+    const allComments = await Comments.findAll();
 
-    res.status(200).json({ potholes, comments });
+    const potholes = allPotholes.map(pothole => pothole.toJSON());
+    const comments = allComments.map(comment => comment.toJSON());
+
+    res.status(200).json({ potholes: potholes, comments: comments });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -15,14 +18,18 @@ router.get(`/`, async (req, res) => {
 
 router.post(`/`, async (req, res) => {
   try {
-    const pothole = await Pothole.create(req.body);
+    const newPothole = await Pothole.create(req.body);
 
-    const comment = await Comments.create({
+    const newComment = await Comments.create({
       user_id: req.session.user_id,
       description: req.body.description,
-      pothole_id: dbPotholeData.id,
+      pothole_id: pothole.id,
     });
-    res.status(200).json({ message: `Pothole Added!`, pothole, comment });
+
+    const pothole = newPothole.toJSON();
+    const comment = newComment.toJSON();
+
+    res.status(200).json({ message: `Pothole Added!`, pothole: pothole, comment: comment });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

@@ -8,7 +8,11 @@ router.get(`/`, withAuth, async (req, res) => {
   try {
     const potholes = await Pothole.findAll();
     const comments = await Comments.findAll();
-    res.render(`map`, { potholes, comments, logged_in: req.session.logged_in });
+    //Turn the pothole and comments sequelize objects into simple JSON
+    const potholeData = potholes.map(pothole => pothole.toJSON());
+    const commentData = comments.map(comment => comment.toJSON());
+
+    res.render(`map`, { potholes: potholeData, comments: commentData, logged_in: req.session.logged_in });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -24,8 +28,10 @@ router.get(`/login`, (req, res) => {
 router.get(`/account`, withAuth, async (req, res) => {
   try {
     const dbUserData = await User.findByPk(req.session.user_id);
-    console.log(dbUserData)
-    res.render(`account`, { logged_in: req.session.logged_in, dbUserData });
+
+    const userData = dbUserData.toJSON();
+
+    res.render(`account`, { logged_in: req.session.logged_in, user: userData });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -35,15 +41,19 @@ router.get(`/account`, withAuth, async (req, res) => {
 //Get HTML route for the Users reported potholes
 router.get(`/reports`, withAuth, async (req, res) => {
   try {
-    const userPotholes = await Pothole.findAll({
+    const userPotholeData = await Pothole.findAll({
       where: { user_id: req.session.user_id },
     });
-    const userComments = await Comments.findAll({
+    const userCommentData = await Comments.findAll({
       where: { user_id: req.session.user_id },
     });
+
+    const userPotholes = userPotholeData.map(potholeData => potholeData.toJSON());
+    const userComments = userCommentData.map(commentData => commentData.toJSON());
+
     res.render(`reports`, {
-      userPotholes,
-      userComments,
+      potholes: userPotholes,
+      comments: userComments,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
