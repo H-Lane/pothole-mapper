@@ -1,4 +1,5 @@
-// Create a Leaflet map centered over Richmond, Virginia
+var L = window.L;
+
 var map = L.map("map").setView([37.5407, -77.436], 12);
 
 // Add a tile layer from OpenStreetMap
@@ -9,8 +10,26 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 var markers = {}; // Object to store markers with pothole IDs
 
+// Fetch pothole data and create markers
+fetch('/api/pothole')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(pothole => {
+      var markerId = `marker_${pothole.id}`;
+      var marker = L.marker([pothole.lat, pothole.lng]).addTo(map);
+      markers[markerId] = marker;
+      
+      var popupContent = `<button onclick="openModal('${markerId}', ${pothole.lat}, ${pothole.lng})">Report a Pothole</button> <button onclick="removePothole('${markerId}')">Remove a Pothole</button>`;
+      marker.bindPopup(popupContent);
+    });
+  })
+  .catch(error => console.error('Error fetching pothole data:', error));
+
 // Function to open the modal for reporting a pothole
 function openModal(markerId, lat, lng) {
+  // Close any existing modal
+  closeModal();
+
   // Create and display the modal dynamically
   var reportModal = document.createElement("div");
   reportModal.className = "modal";
@@ -35,11 +54,13 @@ function openModal(markerId, lat, lng) {
   // Append modal to body
   document.body.appendChild(reportModal);
 
-  // Position modal over the pin marker
-  var latlng = L.latLng(lat, lng);
-  var markerOffset = map.latLngToContainerPoint(latlng);
-  reportModal.style.left = markerOffset.x + "px";
-  reportModal.style.top = markerOffset.y + "px";
+  // Position modal over the map
+  var mapContainer = document.getElementById("map");
+  var mapRect = mapContainer.getBoundingClientRect();
+  reportModal.style.left = mapRect.left + (mapRect.width / 2) - (reportModal.offsetWidth / 2) + "px";
+  reportModal.style.top = mapRect.top + (mapRect.height / 2) - (reportModal.offsetHeight / 2) + "px";
+
+  reportModal.style.display = 'block';
 }
 
 // Function to update the selected button
@@ -56,16 +77,16 @@ function updateSelectedButton(btnId) {
 
 // Function to close the modal
 function closeModal() {
-  var reportModal = document.getElementById("reportModal");
-  reportModal.style.display = "none";
+  var existingModal = document.getElementById("reportModal");
+  if (existingModal) {
+    existingModal.remove();
+  }
 }
 
 // Function to submit the report
 async function submitReport(markerId) {
   var comment = document.getElementById("comment").value;
-  var selectedPotholeSize = document.querySelector(
-    ".modal-content .selected"
-  ).innerText;
+  var selectedPotholeSize = document.querySelector(".modal-content .selected").innerText;
 
   var marker = markers[markerId];
   if (!marker) {
@@ -78,7 +99,7 @@ async function submitReport(markerId) {
     lat: marker.getLatLng().lat,
     size: selectedPotholeSize,
     description: comment,
-    user_id: getSessionUserId(), // Replace with your actual user ID retrieval logic
+    user_id: getSessionUserId(),
   };
 
   try {
@@ -131,37 +152,7 @@ map.on("click", function (e) {
   marker.bindPopup(popupContent).openPopup();
 });
 
-// Event listener for clicking on a marker
-map.on("popupopen", function (e) {
-  var markerId = e.popup._source.options.potholeId;
-});
-
+// Function to get session user ID (dummy function for example)
 function getSessionUserId() {
-  return 1; //
+  return 1; // Replace with actual implementation
 }
-// Function to execute when the user's location is found
-// function onLocationFound(e) {
-//   var radius = e.accuracy / 2;
-//   L.marker(e.latlng).addTo(map)
-//     .bindPopup("You are within " + radius + " meters from this point").openPopup();
-//   L.circle(e.latlng, radius).addTo(map);
-//   map.setView(e.latlng); // Centering the map on the user's location
-// }
-
-// Function to execute if the user's location is not found
-// function onLocationError(e) {
-//   alert(e.message);
-// }
-
-// Options for locating the user
-// var locateOptions = {
-//   setView: true,
-//   maxZoom: 16
-// };
-
-  // // Event listener for locating the user's location
-  // map.on('locationfound', onLocationFound);
-  // map.on('locationerror', onLocationError);
-  
-  // // Locate the user's location
-  // map.locate(locateOptions);
