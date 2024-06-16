@@ -12,7 +12,8 @@ var markers = {}; // Object to store markers with pothole IDs
 
 // Fetch pothole data and create markers
 fetch('/api/pothole')
-  .then(response => response.json())
+//The GET fetch request to this route is already responding with JSON data under the keys potholes and comments
+  // .then(response => response.json())
   .then(data => {
     data.forEach(pothole => {
       var markerId = `marker_${pothole.id}`;
