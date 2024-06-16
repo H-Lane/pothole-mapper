@@ -1,16 +1,18 @@
-alert(`logout.js is connecting`);
 const update = async () => {
   try {
     const name = document.querySelector(`#newName`).value.trim();
     const email = document.querySelector(`#newEmail`).value.trim();
     const password = document.querySelector(`#newPassword`).value.trim();
+
+    const userData = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
     const response = await fetch(`/api/account`, {
       method: `PUT`,
-      body: {
-        name,
-        email,
-        password,
-      },
+      body: JSON.stringify(userData),
       headers: { "Content-Type": "application/json" },
     });
 
