@@ -26,7 +26,7 @@ router.post(`/login`, async (req, res) => {
     const userData = dbUserData.toJSON();
     //This creates a session when the user logs in and saves the User id and the logged in status to the cookie
     req.session.save(() => {
-      (req.session.loggedIn = true),
+      (req.session.logged_in = true),
         (req.session.user_id = userData.id),
         res
           .status(200)
@@ -54,7 +54,7 @@ router.post(`/`, async (req, res) => {
     //Create a new session for the newly created user
     req.session.save(() => {
       req.session.user_id = userData.id;
-      req.session.loggedIn = true;
+      req.session.logged_in = true;
 
       res.status(200).json(userData);
     });
@@ -66,7 +66,7 @@ router.post(`/`, async (req, res) => {
 
 //POST request to LOGOUT
 router.post(`/logout`, (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();
     });
