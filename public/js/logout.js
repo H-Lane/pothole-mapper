@@ -1,4 +1,4 @@
-alert(`logout.js is connecting`)
+alert(`logout.js is connecting`);
 const update = async () => {
   try {
     const name = document.querySelector(`#newName`).value.trim();
@@ -63,6 +63,6 @@ document
   .querySelector(`#updateButton`)
   .addEventListener(`click`, update);
 
-document
-  .querySelector(`#displayPassword`)
-  .addEventListener(`click`, displayPassword);
+// document
+//   .querySelector(`#displayPassword`)
+//   .addEventListener(`click`, displayPassword);
