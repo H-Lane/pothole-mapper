@@ -9,8 +9,8 @@ router.get(`/`, withAuth, async (req, res) => {
     const potholes = await Pothole.findAll();
     const comments = await Comments.findAll();
     //Turn the pothole and comments sequelize objects into simple JSON
-    const potholeData = potholes.toJSON();
-    const commentData = comments.toJSON();
+    const potholeData = potholes.map(pothole => pothole.toJSON());
+    const commentData = comments.map(comment => comment.toJSON());
 
     res.render(`map`, { potholes: potholeData, comments: commentData, logged_in: req.session.logged_in });
   } catch (err) {
@@ -48,8 +48,8 @@ router.get(`/reports`, withAuth, async (req, res) => {
       where: { user_id: req.session.user_id },
     });
 
-    const userPotholes = userPotholeData.toJSON();
-    const userComments = userCommentData.toJSON();
+    const userPotholes = userPotholeData.map(potholeData => potholeData.toJSON());
+    const userComments = userCommentData.map(commentData => commentData.toJSON());
 
     res.render(`reports`, {
       potholes: userPotholes,

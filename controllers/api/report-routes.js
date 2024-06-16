@@ -10,8 +10,8 @@ router.get(`/`, async (req, res) => {
         where: {user_id: req.session.user_id}
     });
 
-    const potholes = userPotholes.toJSON();
-    const comments = userComments.toJSON();
+    const potholes = userPotholes.map(pothole => pothole.toJSON());
+    const comments = userComments.map(comment => comment.toJSON());
 
     res.status(200).json({ potholes: potholes, comments: comments })
   } catch (err) {

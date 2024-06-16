@@ -6,8 +6,8 @@ router.get(`/`, async (req, res) => {
     const allPotholes = await Pothole.findAll();
     const allComments = await Comments.findAll();
 
-    const potholes = allPotholes.toJSON();
-    const comments = allComments.toJSON();
+    const potholes = allPotholes.map(pothole => pothole.toJSON());
+    const comments = allComments.map(comment => comment.toJSON());
 
     res.status(200).json({ potholes: potholes, comments: comments });
   } catch (err) {
