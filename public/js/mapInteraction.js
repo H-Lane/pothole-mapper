@@ -9,6 +9,20 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 var markers = {}; // Object to store markers with pothole IDs
 
+fetch('/api/potholes')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(pothole => {
+      var markerId = `marker_${pothole.id}`;
+      var marker = L.marker([pothole.lat, pothole.lng]).addTo(map);
+      markers[markerId] = marker;
+      
+      var popupContent = `<button onclick="openModal('${markerId}', ${pothole.lat}, ${pothole.lng})">Report a Pothole</button> <button onclick="removePothole('${markerId}')">Remove a Pothole</button>`;
+      marker.bindPopup(popupContent);
+    });
+  })
+  .catch(error => console.error('Error fetching pothole data:', error));
+  
 // Function to open the modal for reporting a pothole
 function openModal(markerId, lat, lng) {
   // Create and display the modal dynamically
