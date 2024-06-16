@@ -20,7 +20,7 @@ router.post(`/`, async (req, res) => {
     const comment = await Comments.create({
       user_id: req.session.user_id,
       description: req.body.description,
-      pothole_id: dbPotholeData.id,
+      pothole_id: pothole.id,
     });
     res.status(200).json({ message: `Pothole Added!`, pothole, comment });
   } catch (err) {

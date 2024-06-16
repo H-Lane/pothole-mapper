@@ -23,6 +23,7 @@ Pothole.init(
     },
     fixed: {
       type: DataTypes.BOOLEAN,
+      allowNull: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
