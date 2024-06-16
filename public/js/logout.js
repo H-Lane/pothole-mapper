@@ -1,4 +1,6 @@
 alert(`logout.js is connecting`)
+
+//fetch request to update a User in our system
 const update = async () => {
   try {
     const name = document.querySelector(`#newName`).value.trim();
@@ -14,6 +16,7 @@ const update = async () => {
       headers: { "Content-Type": "application/json" },
     });
 
+    //Refresh the page on a proper update
     if (response.ok) {
       window.location.reload();
     } else if (response.status === 400) {

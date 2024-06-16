@@ -1,6 +1,7 @@
 const router = require(`express`).Router();
 const { User, Pothole, Comments } = require(`../../models`);
 
+//GET request to /api/reports that returns all of an individual users Potholes and Comments
 router.get(`/`, async (req, res) => {
   try {
     const potholes = await Pothole.findAll({
