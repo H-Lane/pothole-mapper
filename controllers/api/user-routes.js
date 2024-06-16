@@ -22,14 +22,15 @@ router.post(`/login`, async (req, res) => {
       res.status(400).json({ message: `Invalid Login Credentials` });
       return;
     }
-
+    //convert the user data into simple JSON
+    const userData = dbUserData.toJSON();
     //This creates a session when the user logs in and saves the User id and the logged in status to the cookie
     req.session.save(() => {
       (req.session.loggedIn = true),
-        (req.session.user_id = dbUserData.id),
+        (req.session.user_id = userData.id),
         res
           .status(200)
-          .json({ user: dbUserData, message: `You are now logged in!` });
+          .json({ user: userData, message: `You are now logged in!` });
     });
   } catch (err) {
     console.log(err);
@@ -48,12 +49,14 @@ router.post(`/`, async (req, res) => {
       password: req.body.password,
     });
 
+    const userData = dbUserData.toJSON();
+
     //Create a new session for the newly created user
     req.session.save(() => {
-      req.session.user_id = dbUserData.id;
+      req.session.user_id = userData.id;
       req.session.loggedIn = true;
 
-      res.status(200).json(dbUserData);
+      res.status(200).json(userData);
     });
   } catch (err) {
     console.log(err);
