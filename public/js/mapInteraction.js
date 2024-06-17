@@ -1,5 +1,3 @@
-const {getSessionUserId} = require(`../../utils/helpers`)
-
 var L = window.L;
 
 var map = L.map("map").setView([37.5407, -77.436], 12);
@@ -12,21 +10,27 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 var markers = {}; // Object to store markers with pothole IDs
 
-// Fetch pothole data and create markers
-fetch('/api/pothole')
-//The GET fetch request to this route is already responding with JSON data under the keys potholes and comments
-  // .then(response => response.json())
-  .then(data => {
-    data.forEach(pothole => {
-      var markerId = `marker_${pothole.id}`;
-      var marker = L.marker([pothole.lat, pothole.lng]).addTo(map);
-      markers[markerId] = marker;
-      
-      var popupContent = `<button onclick="openModal('${markerId}', ${pothole.lat}, ${pothole.lng})">Report a Pothole</button> <button onclick="removePothole('${markerId}')">Remove a Pothole</button>`;
-      marker.bindPopup(popupContent);
-    });
-  })
-  .catch(error => console.error('Error fetching pothole data:', error));
+function populatePins() {
+  // Fetch pothole data and create markers
+  const variable = fetch("/api/pothole", {
+    method: `GET`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => console.log(response));
+};
+populatePins();
+// .then(data => {
+//   data.forEach(pothole => {
+//     var markerId = `marker_${pothole.id}`;
+//     var marker = L.marker([pothole.lat, pothole.lng]).addTo(map);
+//     markers[markerId] = marker;
+
+//     var popupContent = `<button onclick="openModal('${markerId}', ${pothole.lat}, ${pothole.lng})">Report a Pothole</button> <button onclick="removePothole('${markerId}')">Remove a Pothole</button>`;
+//     marker.bindPopup(popupContent);
+//   });
+// })
+// .catch(error => console.error('Error fetching pothole data:', error));
 
 // Function to open the modal for reporting a pothole
 function openModal(markerId, lat, lng) {
@@ -60,10 +64,12 @@ function openModal(markerId, lat, lng) {
   // Position modal over the map
   var mapContainer = document.getElementById("map");
   var mapRect = mapContainer.getBoundingClientRect();
-  reportModal.style.left = mapRect.left + (mapRect.width / 2) - (reportModal.offsetWidth / 2) + "px";
-  reportModal.style.top = mapRect.top + (mapRect.height / 2) - (reportModal.offsetHeight / 2) + "px";
+  reportModal.style.left =
+    mapRect.left + mapRect.width / 2 - reportModal.offsetWidth / 2 + "px";
+  reportModal.style.top =
+    mapRect.top + mapRect.height / 2 - reportModal.offsetHeight / 2 + "px";
 
-  reportModal.style.display = 'block';
+  reportModal.style.display = "block";
 }
 
 // Function to update the selected button
@@ -89,7 +95,9 @@ function closeModal() {
 // Function to submit the report
 async function submitReport(markerId) {
   var comment = document.getElementById("comment").value;
-  var selectedPotholeSize = document.querySelector(".modal-content .selected").innerText;
+  var selectedPotholeSize = document.querySelector(
+    ".modal-content .selected"
+  ).innerText;
 
   var marker = markers[markerId];
   if (!marker) {
